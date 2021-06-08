@@ -13,7 +13,6 @@ from mtdef import MID, OutputMode, OutputSettings, MTException, Baudrates, \
     XDIGroup, getMIDName, DeviceState, DeprecatedMID, MTErrorMessage, \
     MTTimeoutException
 
-
 ################################################################
 # MTDevice class
 ################################################################
@@ -1175,7 +1174,8 @@ class MTDevice(object):
 ################################################################
 def find_devices(timeout=0.002, verbose=False, initial_wait=0.1):
     mtdev_list = []
-    for port in glob.glob("/dev/tty*S*"):
+    # for port in glob.glob("/dev/tty*S*"):
+    for port in glob.glob("/dev/ttyUSB0"):
         if verbose:
             print("Trying '%s'" % port)
         try:
