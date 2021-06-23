@@ -735,7 +735,7 @@ class XSensDriver(object):
         if self.pub_raw_gps:
             self.raw_gps_msg.header = self.h
             if self.raw_gps_pub is None:
-                self.raw_gps_pub = rospy.Publisher('imt/raw_fix', NavSatFix, queue_size=10)
+                self.raw_gps_pub = rospy.Publisher('imu/raw_fix', NavSatFix, queue_size=10)
             self.raw_gps_pub.publish(self.raw_gps_msg)
         if self.pub_pos_gps:
             self.pos_gps_msg.header = self.h
