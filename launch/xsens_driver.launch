@@ -10,9 +10,10 @@
     <arg name="angular_velocity_covariance_diagonal" default="[0.0004, 0.0004, 0.0004]" doc="Diagonal elements of angular velocity covariance matrix"/>
     <arg name="linear_acceleration_covariance_diagonal" default="[0.0004, 0.0004, 0.0004]" doc="Diagonal elements of linear acceleration covariance matrix"/>
     <arg name="orientation_covariance_diagonal" default="[0.01745, 0.01745, 0.15708]" doc="Diagonal elements of the orientation covariance matrix"/>
+    <arg name="node_name" default="xsens_driver"/>
 
     <!-- node -->
-	<node pkg="xsens_driver" type="mtnode.py" name="xsens_driver" output="screen" >
+	<node pkg="xsens_driver" type="mtnode.py" name="$(arg node_name)" output="screen" >
 		<param name="device" value="$(arg device)"/>
 		<param name="baudrate" value="$(arg baudrate)"/>
 		<param name="timeout" value="$(arg timeout)"/>
