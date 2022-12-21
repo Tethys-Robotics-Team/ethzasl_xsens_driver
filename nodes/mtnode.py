@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import roslib; roslib.load_manifest('xsens_driver')
 import rospy
+import tf
 import select
 import sys
 
@@ -112,6 +113,7 @@ class XSensDriver(object):
                                          message='No status information')
         self.diag_msg.status = [self.stest_stat, self.xkf_stat, self.gps_stat]
 
+        self.br = tf.TransformBroadcaster()
         # publishers created at first use to reduce topic clutter
         self.diag_pub = None
         self.imu_pub = None
@@ -347,6 +349,7 @@ class XSensDriver(object):
             self.imu_msg.orientation.z = z
             self.imu_msg.orientation.w = w
             self.imu_msg.orientation_covariance = self.orientation_covariance
+
 
         def fill_from_Auxiliary(aux_data):
             '''Fill messages with information from 'Auxiliary' MTData block.'''
@@ -732,6 +735,14 @@ class XSensDriver(object):
             if self.imu_pub is None:
                 self.imu_pub = rospy.Publisher('data', Imu, queue_size=10)
             self.imu_pub.publish(self.imu_msg)
+# XXX
+            quat = self.imu_msg.orientation;
+            self.br.sendTransform((0, 0, 1.0),
+                                  (quat.w, quat.x, quat.y, quat.z),
+                                  self.h.stamp,
+                                  "imu_quat",
+                                  "enu")
+
         if self.pub_raw_gps:
             self.raw_gps_msg.header = self.h
             if self.raw_gps_pub is None:
