@@ -736,9 +736,9 @@ class XSensDriver(object):
                 self.imu_pub = rospy.Publisher('data', Imu, queue_size=10)
             self.imu_pub.publish(self.imu_msg)
 # XXX
-            quat = self.imu_msg.orientation;
+            quat = self.imu_msg.orientation
             self.br.sendTransform((0, 0, 1.0),
-                                  (quat.w, quat.x, quat.y, quat.z),
+                                  (quat.x, quat.y, quat.z, quat.w),
                                   self.h.stamp,
                                   "imu_quat",
                                   "enu")
