@@ -13,7 +13,7 @@
     <arg name="node_name" default="xsens_driver"/>
 
     <!-- node -->
-	<node pkg="xsens_driver" type="mtnode.py" name="$(arg node_name)" output="screen" >
+	<node pkg="xsens_driver" type="mtnode.py" name="$(arg node_name)" output="screen" respawn="true">
 		<param name="device" value="$(arg device)"/>
 		<param name="baudrate" value="$(arg baudrate)"/>
 		<param name="timeout" value="$(arg timeout)"/>
